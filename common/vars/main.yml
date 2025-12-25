@@ -1,1 +1,5 @@
-dir_udacity: "ansible_course"
+ports:
+  - 80
+  - 443
+
+dir: "www.companyplus.com"
