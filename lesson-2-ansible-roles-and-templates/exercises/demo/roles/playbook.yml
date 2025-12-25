@@ -2,3 +2,22 @@
   become: true
   roles:
     - common
+
+  tasks:
+    - name: Block commands
+      block:
+        - name: Run command
+          command: ls -al /var/www/html/www.companyplus.com
+          register: www_list
+
+        - name: Run command if directory /var/www/html/www.companyplus.com doesn't exist
+          debug: 
+            msg: "directory /var/www/html/www.companyplus.com doesn't exist."
+          when: www_list.rc == 1 
+
+        - name: Run command if directory /var/www/html/www.companyplus.com exists
+          debug: 
+            msg: "directory /var/www/html/www.companyplus.com exists."
+          when: www_list.rc == 0           
+      tags:
+        - udacity

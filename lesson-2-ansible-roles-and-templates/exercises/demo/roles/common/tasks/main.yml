@@ -1,3 +1,22 @@
+- name: Open ports in firewall 
+  firewalld:
+    port: "{{ item }}/tcp"
+    state: enabled
+    permanent: true
+    immediate: true
+  loop: "{{ ports }}"
+
+
+- name: Run command
+  command: ls -al /var/www/html/www.companyplus.com
+  register: www_list
+      
+- name: Run a command if the first command succeeds
+  file:
+    path: "/{{ dir }}"
+    state: directory
+  when: www_list.rc == 1  
+
 - name: Create ansible directory
   file:
     path: "/{{ dir }}"
