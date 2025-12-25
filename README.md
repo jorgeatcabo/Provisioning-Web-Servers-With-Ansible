@@ -10,6 +10,17 @@ The Ansible playbook should do the following:
     * Make the rule permanent and apply it immediately via the firewalld module
 * Check for the existence of a directory called `/var/www/html/www.companyplus.com` and if it does not exist display an error via the `debug` module and if it does exist, print a message stating it exists via the `debug module in a block section
 * Create a role named `webserver` that does the following:
-* Item 2b
-    * Item 3a
-    * Item 3b
+    * Install `nginx` package using the Ansible `package` module
+        * Create a role var named `webserver` and set it `nginx` and use that variable in the package module
+    * Create a directory named `/var/www/html/www.companyplus.com` and `/var/www/html/www.companypulsar.com` and give the group `nginx` and user `nginx` full permissions (`mode 770`) on the folders using Ansible loops
+    * Template the `nginx.conf.j2` file using Jinja using the provided config block in the starter folder. The config block contains the following variables:
+        * `app_root`
+        * `server_name`
+        * `document_root`
+    * Create a role handler that restarts the nginx service once the template task is done
+* When calling the role in the playbook, use the following values for the role variables:
+    * `app_root: html_demo_site-main`
+    * `server_name: "{{ ansible_default_ipv4.address }}"`
+    * `document_root: /var/www/html`
+Run the playbook against the hosts and ensure it succeeds
+`ansible-playbook -i inventory.ini`
