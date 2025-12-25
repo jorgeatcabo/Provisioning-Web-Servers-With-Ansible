@@ -1,0 +1,19 @@
+server {
+  listen {{ http_port }};
+
+  root /var/www/html/{{ app_root }};
+  index index.html index.htm;
+
+  server_name www.udacity.com;
+  return 301 https://$host$request_uri;
+  
+  location / {
+   default_type "text/html";
+   try_files $uri.html $uri $uri/ =404;
+  }
+}
+
+server {
+    listen 443 ssl default_server;
+    server_name www.udacity.com;
+}

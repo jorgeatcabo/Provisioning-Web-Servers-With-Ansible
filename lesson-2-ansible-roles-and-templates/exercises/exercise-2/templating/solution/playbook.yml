@@ -1,0 +1,12 @@
+- hosts: aws
+  become: true
+
+  vars:
+    site_config: "www.udacity.com"
+    site_port: "80"
+
+  tasks:
+    - name: Copy Configuration
+      template:
+        src: file.cfg.j2
+        dest: /etc/file.cfg

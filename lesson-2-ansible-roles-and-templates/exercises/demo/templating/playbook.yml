@@ -1,0 +1,17 @@
+- hosts: aws
+  become: true
+
+  vars:
+    app_root: "www.udacity.com"
+    http_port: "80"
+
+  tasks:
+    - name: Create nginx directory
+      file:
+        path: /etc/nginx
+        state: directory
+        
+    - name: Copy Nginx Configuration
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf

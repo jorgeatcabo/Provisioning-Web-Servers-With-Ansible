@@ -1,0 +1,9 @@
+- name: Create ansible directory
+  file:
+    path: "/{{ dir }}"
+    state: directory
+
+- name: Create ansible udacity directory
+  file:
+    path: "/{{ dir_udacity }}"
+    state: directory
