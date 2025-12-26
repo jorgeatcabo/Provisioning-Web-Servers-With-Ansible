@@ -2,4 +2,4 @@ ports:
   - 80
   - 443
 
-dir: "www.companyplus.com"
+webserver: nginx
