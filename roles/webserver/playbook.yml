@@ -1,0 +1,37 @@
+- hosts: aws
+  become: true
+
+  tasks:
+
+
+    - name: Open required ports in firewalld
+      firewalld:
+        port: "{{ item }}/tcp"
+        permanent: true
+        state: enabled
+        immediate: true
+      loop: "{{ ports }}"
+
+    - name: Check if companyplus directory exists
+      stat:
+        path: /var/www/html/www.companyplus.com
+      register: companyplus_dir
+
+    - name: Validate companyplus directory
+      block:
+        - name: Directory exists
+          debug:
+            msg: "Directory /var/www/html/www.companyplus.com exists"
+      when: companyplus_dir.stat.exists
+
+    - name: Directory missing error
+      debug:
+        msg: "ERROR: Directory /var/www/html/www.companyplus.com does not exist"
+      when: not companyplus_dir.stat.exists
+
+  roles:
+    - role: webserver
+      vars:
+        app_root: html_demo_site-main
+        server_name: "{{ ansible_default_ipv4.address }}"
+        document_root: /var/www/html

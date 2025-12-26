@@ -1,0 +1,29 @@
+---
+- name: Install web server package
+  package:
+    name: "{{ webserver }}"
+    state: present
+
+- name: Ensure nginx is running and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Create website directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: nginx
+    group: nginx
+    mode: "0770"
+  loop:
+    - /var/www/html/www.companyplus.com
+    - /var/www/html/www.companypulsar.com
+
+- name: Deploy nginx configuration
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    mode: "0644"
+  notify: Restart nginx

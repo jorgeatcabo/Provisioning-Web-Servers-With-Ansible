@@ -1,0 +1,19 @@
+worker_processes auto;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    server {
+        listen 80;
+        server_name {{ server_name }};
+
+        root {{ document_root }}/{{ app_root }};
+        index index.html;
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+}
