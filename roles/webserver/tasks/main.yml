@@ -14,6 +14,7 @@
   loop:
     - /var/www/html/www.companyplus.com
     - /var/www/html/www.companypulsar.com
+    - /var/www/html/{{ app_root }}
 
 - name: Deploy nginx configuration
   template:
