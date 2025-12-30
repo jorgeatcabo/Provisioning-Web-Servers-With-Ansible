@@ -4,12 +4,6 @@
     name: "{{ webserver }}"
     state: present
 
-- name: Ensure nginx is running and enabled
-  service:
-    name: nginx
-    state: started
-    enabled: true
-
 - name: Create website directories
   file:
     path: "{{ item }}"
@@ -27,3 +21,9 @@
     dest: /etc/nginx/nginx.conf
     mode: "0644"
   notify: Restart nginx
+
+- name: Ensure nginx is running and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: true
