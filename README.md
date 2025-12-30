@@ -22,5 +22,19 @@ The Ansible playbook should do the following:
     * `app_root: html_demo_site-main`
     * `server_name: "{{ ansible_default_ipv4.address }}"`
     * `document_root: /var/www/html`
+
 Run the playbook against the hosts and ensure it succeeds
 `ansible-playbook -i inventory.ini`
+
+---
+
+# EC2 VMs and Playbook Outputs Screenshots Images
+![EC2 VMs in AWS environment](EC2_VMs_in_AWS_environment.png)
+
+![Evidence Playbook Executed](evidence_that_the_playbook_was_executed_against_these_instances_without_errors_1.png)
+
+![Evidence Playbook Executed](evidence_that_the_playbook_was_executed_against_these_instances_without_errors_2.png)
+
+![Evidence Playbook Executed](evidence_that_the_playbook_was_executed_against_these_instances_without_errors_3.png)
+
+---
